@@ -35,14 +35,14 @@ The target variable in this project was the selling price of the houses. But bef
 
 > III) Next, I used hypothesis testing to determine the effect of a waterfront on the price of a house and tested the hypotheses using a two sample t-test in order to obtain a p-value to compare to an alpha value of 0.05. The p-value(0.0) obtained was less than the alpha value(0.05) and so I rejected the null hypothesis and conclude that the presence of a waterfront has an effect on the selling price of a house. The following were the hypotheses I came up with and tested;<br>
 
-    > __Null Hypothesis__<br>
-    > H0 = The presence of a waterfront has no effect on the price of a house.
+   > __Null Hypothesis__<br>
+   > H0 = The presence of a waterfront has no effect on the price of a house.
 
-    > __Alternative Hypothesis__<br>
-    > H1 = The presence of a water front has an effect on the price of a house.
+   > __Alternative Hypothesis__<br>
+   > H1 = The presence of a water front has an effect on the price of a house.
 
 ### Modeling.
-In order to create the regression model, I needed to use columns with numerical data types. The numerical columns were copied into a new variable that was be used to create the regression model. The numerical columns chosen for the modelling process were:
+In order to create the regression model, I needed to use columns with numerical data types. Since the grade column was not a numerical column, I had to create a new column that represents the numerical values of the grade of the houses. The numerical columns were copied into a new variable that was be used to create the regression model. The numerical columns chosen for the modelling process were:
 > - price<br>
 > - sqft_living<br>
 > - sqft_lot<br>
@@ -50,10 +50,11 @@ In order to create the regression model, I needed to use columns with numerical 
 > - bedrooms<br> 
 > - bathrooms<br>
 > - floors<br>
+> - grade_num<br>
 
 Since correlation is a measure related to regression modelling, I checked the correlation between price and these variables and discovered that they had a medium-to-strong correlation with the price. Since sqft_living had the strongest correlation with the price, I used it to create a simple regression model that would be evaluated against the multiple regression model.
 
-> __Interpreting the simple model__<br>
+> #### Interpreting the simple model<br>
 
 The formula set-up was:<br>
    > price = 283.40(square-feet) - 48607.47<br>
@@ -64,7 +65,7 @@ The formula set-up was:<br>
 * Given that a house had 0 square-feet of living area, the price of the house dropped by 48,607 dollars.
 * For each increase in 1 square-foot of of the living area, we saw an associated increase of 283.40 dollars in the price of the house.
 
-> __Multiple linear regrssion model.__<br>
+> #### Multiple linear regrssion model.<br>
 Now that I had a simple model that would be used to evaluate the final model, I went on and create a multiple linear regression model that included all of the numerical datasets. 
 
 #### One-Hot encoding categorical variables.
@@ -73,17 +74,19 @@ This step of the modelling process involved creating dummy variables from catego
 #### Interpreting the multiple regression model.
     
 * The model was overally statistically significant, with the f-statistic p-value well below 0.05.
-* The model explained about 56% of the variance in price. Which was an improvement from the simple model.
-* Not all the model coefficients were statistically significant. Two coeficients (bedrooms_4 and bedroom_5) were both not statistically significant, with t-statistic p-values above 0.05.
-* Given that all other predictors were 0, the price of the house was 6,072,946 dollars. Which is obviously not a real world value considering that a house should atleast have one of the other factors available.
+* The model explained about 57% of the variance in price. Which was an improvement from the simple model.
+* Not all the model coefficients were statistically significant. The coeficient for bedroom_5 is not statistically significant, with t-statistic p-values above 0.05.
+* Given that all other predictors were 0, the price of the house was 6,029,056 dollars. Which is obviously not a real world value considering that a house should atleast have one of the other factors available.
 * The refrence category for the number of bedrooms was any other number of bedrooms aside from the ones used in the model.
-    * When a house had 2 bedrooms as compared to any other number of bedrooms besides 2, 3, 4 and 5, we saw an associated increase of 191,849.5 dollars in the price of the house.
-    * when a house had 3 bedrooms as compared to any other number of bedrooms besides 2, 3, 4 and 5, we saw an associated increase of 93,730.56 dollars in the price of the house.
-* For each increase in 1 bathroom, we saw an associated increase of 61,256.36 dollars in the price of the house.
-* For each increase in 1 square-foot of the living area, we saw an associated increase of 305.33 dollars in the price of the house.
-* For each increase in 1 square-foot of the lot area, we saw an associated decrease of 0.31 dollars in the price of the house.
-* for each increase of 1 floor, we saw an associated increase of 55,786.64 dollars in the price of the house.
-* for each year newer the house is, we saw an associated decrease of 3,270.37 dollars in the price of the house.
+    * When a house had 2 bedrooms as compared to any other number of bedrooms besides 2, 3, 4 and 5, we saw an associated increase of 178,552 dollars in the price of the house.
+    * when a house had 3 bedrooms as compared to any other number of bedrooms besides 2, 3, 4 and 5, we saw an associated increase of 97,460 dollars in the price of the house.
+    * when a house had 4 bedrooms as compared to any other number of bedrooms besides 2, 3, 4 and 5, we saw an associated increase of 25,122 dollars in the price of the house.
+* For each increase in 1 bathroom, we saw an associated increase of 66,591 dollars in the price of the house.
+* For each increase in 1 square-foot of the living area, we saw an associated increase of 280.71 dollars in the price of the house.
+* For each increase in 1 square-foot of the lot area, we saw an associated decrease of 0.34 dollars in the price of the house.
+* For each increase of 1 floor, we saw an associated increase of 59,682 dollars in the price of the house.
+* For each year newer the house is, we saw an associated decrease of 3,142.8 dollars in the price of the house.
+* For each grade higher the house is, we see an associated decrease of 25,624 dollars in the price of the house.
 
 
 #### Changes to the model.
@@ -94,19 +97,20 @@ In order to get a better model, I had to make a few iterations to the multiple l
 
 #### Interpreting the final model.
     
-* The model was overally statistically significant, with the f-statistic p-value well below 0.05.
-* The model explained about 56% of the variance in price. Which was the same as the first multiple regression model.
-* All the model coefficients were statistically significant with t-statistic p-values well above 0.05. This was the difference between the first model and the final model, not all coeficients were statistically significant in the first model.
-* Given that all other predictors were 0, the price of the house was 6,311,447 dollars. Which is obviously not a real world value considering that a house should atleast have one of the other factors available. This was not too far off from the intercept value of the first multiple model.
-* The refrence category for the number of bedrooms was a 2 bedroomed house.
-    * When a house had any other number bedrooms besided 3, 4 and 5, as compared to a 2 bedroomed house, we saw an associated decrease of 189,512.8 dollars in the price of the house. This was surprising because this category contains houses with 1 bedroom and any other number of bedrooms above 5. 
-    * When a house had 3 bedrooms as compared to a 2 bedroomed house, we saw an associated decrease of 97,025.53 dollars in the price of the house.
-    * When a house had 4 bedrooms as compared to a 2 bedroomed house, we saw an associated decrease of 176,290.3 dollars in the price of the house. This is an new addition to the model since it was not statistically significant in the first model.
-    * When a house had 5 bedrooms as compared to a 2 bedroomed house, we saw an associated decrease of 197,334.1 dollars in the price of the house. This is also a new addition to the model since it was not statistically significant in the first model.
-* For each increase in 1 bathroom, we saw an associated increase of 62,650.7 dollars in the price of the house. Which was almost the same effect on the price of the house by the bathroom coeficient as compared to the first model. 
-* For each increase in 1 square-foot of the living area, we saw an associated increase of 301.2 dollars in the price of the house. Which was not a big difference in the effect on the price of the house by the square-feet of the living area coeficient as compared to the first model.
-* For each increase of 1 floor, we saw an associated increase of 57,798.7 dollars in the price of the house. Which was not a big difference in the effect on the price of the house by the number of floors as compared to the first model.
-* For each year newer the house is, we saw an associated decrease of 3,295.95 dollars in the price of the house. Which was not a big difference in the effect on the price of the house by the year it was built compared the first model.
+* The model is overally statistically significant, with the f-statistic p-value well below 0.05.
+* The model explains about 57% of the variance in price. Which is the same as the first multiple regression model.
+* All the model coefficients are statistically significant with t-statistic p-values well above 0.05. This is the difference between the first model and this model, not all coeficients were statistically significant in the first model.
+* Given that all other predictors are 0, the price of the house is 6,259,338 dollars. Which is obviously not a real world value considering that a house should atleast have one of the other factors available. This is not too far off from the intercept value of the first multiple model.
+* The refrence category for the number of bedrooms is a 2 bedroomed house.
+    * When a house has any other number bedrooms besided 3, 4 and 5, as compared to a 2 bedroomed house, we see an associated decrease of 176,091 dollars in the price of the house. This is surprising because this category contains houses with 1 bedroom and any other number of bedrooms above 5. 
+    * When a house has 3 bedrooms as compared to a 2 bedroomed house, we see an associated decrease of 80,027 dollars in the price of the house.
+    * When a house has 4 bedrooms as compared to a 2 bedroomed house, we see an associated decrease of 150,833 dollars in the price of the house. This is an new addition to the model since it was not statistically significant in the first model.
+    * When a house has 5 bedrooms as compared to a 2 bedroomed house, we see an associated decrease of 168,757 dollars in the price of the house. This is also a new addition to the model since it was not statistically significant in the first model.
+* For each increase in 1 bathroom, we see an associated increase of 68,080 dollars in the price of the house. Which is almost the same effect on the price of the house by the bathroom coeficient as compared to the first model. 
+* For each increase in 1 square-foot of the living area, we see an associated increase of 276.36 dollars in the price of the house. Which is not a big difference in the effect on the price of the house by the square-feet of the living area compared the first model.
+* For each increase of 1 floor, we see an associated increase of 61,862 dollars in the price of the house. Which is not a big difference in the effect on the price of the house by the number of floors compared the first model.
+* For each year newer the house is, we see an associated decrease of 3,171.93 dollars in the price of the house. Which is not a big difference in the effect on the price of the house by the year it was built compared the first model.
+* For each grade higher the house is, we see an associated decrease of 25,418 dollars in the price of the house. Which is not a big difference in the effect on the price of the house by the year it was built compared the first model.
 
 ## Conclusions.
 > * Though few, houses with waterfronts fetch more money than houses without waterfronts.<br>
@@ -121,7 +125,7 @@ The recommendations have been tailored to each of the indivual target partners.
 
 #### i) Real estate agencies.
 > * The agency should consider listing more houses that have waterfronts and excellent views because these houses are guaranteed to have a higher value than houses without waterfronts or views.<br> 
-> * The agency should also try to steer clear of houses that are in poor condition and houses that are of a lower grade than 7. These houses fetch litle money and are hard to sell.<br>
+> * The agency should also try to steer clear of houses that are in poor condition as these houses fetch litle money and are hard to sell.<br>
 > * The price of a house that has 2 or more floors and 2 or more bathrooms is guaranteed to increase by over 200,000 dollars. Listing more houses like these will lead to increased revenue for the agency.<br>
 
 #### ii) Construction companies.
@@ -132,6 +136,6 @@ The recommendations have been tailored to each of the indivual target partners.
 > * Before putting up the house for sale, home owners should consider making some renovations to the house so as to improve the condition of the house. Putting up the house for sale when its condition is average might lower the value of the house, so it is better to invest in some renovations where needed.<br>
 
 #### iv) Potential home owners who are looking to buy.
-> * When looking for a house to buy, a potential home owner should focus on finding a house that has more bedrooms and fewr floors. This type of house is guaranteed to be cheaper as the model has shown that the more the number of bedrooms, the cheaper the house becomes but the more the number of floors, the higher the price of the house.<br>
+> * When looking for a house to buy, a potential home owner should focus on finding a house that has more bedrooms and fewer floors. This type of house is guaranteed to be cheaper as the model has shown that the more the number of bedrooms, the cheaper the house becomes but the more the number of floors, the higher the price of the house.<br>
 > * Another factor to consider is that, houses with waterfronts and excellent views are very expensive. Potential home owners who have a tight budget should focus on houses without waterfronts and with fair views in order to minimise the cost.<br>
-> * If one is trying to make a business out of buying and reselling houses, a good tactic would be to buy houses that are in poor conditions and renovate it so as to improve the condition of the house before selling it at a higher price. One thing to avoid though is buying low grade houses because it is harder to improve the grade of a house especially if it is tied to the grade of the neighbourhood.<br>
+> * If one is trying to make a business out of buying and reselling houses, a good tactic would be to buy houses that are in poor conditions and renovate them so as to improve the condition of the houses before selling them at a higher price.<br>
