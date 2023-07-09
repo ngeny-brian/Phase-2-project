@@ -54,7 +54,7 @@ In order to create the regression model, I needed to use columns with numerical 
 
 Since correlation is a measure related to regression modelling, I checked the correlation between price and these variables and discovered that they had a medium-to-strong correlation with the price. Since sqft_living had the strongest correlation with the price, I used it to create a simple regression model that would be evaluated against the multiple regression model.
 
-> #### Interpreting the simple model<br>
+#### Interpreting the simple model<br>
 
 The formula set-up was:<br>
    > price = 283.40(square-feet) - 48607.47<br>
@@ -65,7 +65,7 @@ The formula set-up was:<br>
 * Given that a house had 0 square-feet of living area, the price of the house dropped by 48,607 dollars.
 * For each increase in 1 square-foot of of the living area, we saw an associated increase of 283.40 dollars in the price of the house.
 
-> #### Multiple linear regrssion model.<br>
+#### Multiple linear regrssion model.<br>
 Now that I had a simple model that would be used to evaluate the final model, I went on and create a multiple linear regression model that included all of the numerical datasets. 
 
 #### One-Hot encoding categorical variables.
